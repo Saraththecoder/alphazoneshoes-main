@@ -32,52 +32,40 @@ const Home = () => {
 
   return (
     <div className="page-enter">
-      {/* Hero Section */}
+      {/* Cinematic Hero Section */}
       <section className="hero-section">
-        <div className="hero-left">
-          <span className="hero-label">NEW COLLECTION 2026</span>
-          <h1 className="hero-title">Wear Bold.<br/>Live Alpha.</h1>
-          <p className="hero-subtext">
-            Step into the future of Indian fashion. Premium quality footwear and apparel crafted for those who lead the pack.
-          </p>
-          
-          <div className="hero-ctas">
-            <Link to="/products" className="btn-primary">Shop Now</Link>
-            <Link to="/products" className="btn-secondary">View All</Link>
-          </div>
-          
-          <div className="hero-features">
-            <div className="feature">
-              <PiTruck className="text-accent" />
-              <span>Free Delivery ₹499+</span>
+        <div className="hero-overlay"></div>
+        
+        <div className="hero-content-centered">
+          <Reveal>
+            <h1 className="hero-title">Wear Bold.<br/>Live <span className="text-accent">Alpha.</span></h1>
+            <p className="hero-subtitle">Premium Indian fashion designed for the modern trendsetter.</p>
+            <div className="hero-ctas">
+              <Link to="/products" className="btn-primary">Explore Collection</Link>
             </div>
-            <div className="feature">
-              <PiArrowsClockwise className="text-accent" />
-              <span>Easy Returns</span>
-            </div>
-            <div className="feature">
-              <PiStar weight="fill" className="text-accent" />
-              <span>Premium Quality</span>
-            </div>
-          </div>
+          </Reveal>
         </div>
 
-        <div className="hero-right">
-          <div className="bento-grid">
-            <div className="bento-tile tile-large-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800)' }}>
+        <div className="hero-bottom-bar">
+          <Reveal className="glass-features">
+            <div className="feature-item">
+              <PiTruck className="text-accent" size={24} />
+              <span>Free Delivery ₹499+</span>
             </div>
-            <div className="bento-tile tile-stat">
-              <PiStar size={32} weight="fill" className="text-accent mb-2" />
-              <h3 className="stat-num">2000+</h3>
-              <p className="stat-text">Happy Customers</p>
+            <div className="feature-item">
+              <PiArrowsClockwise className="text-accent" size={24} />
+              <span>Easy Returns</span>
             </div>
-            <div className="bento-tile tile-badge">
-              <div className="badge-new">NEW ARRIVAL</div>
-              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400" alt="New Arrival" />
+            <div className="feature-item">
+              <PiStar weight="fill" className="text-accent" size={24} />
+              <span>Premium Quality</span>
             </div>
-            <div className="bento-tile tile-price">
-              <span className="price-tag">₹299</span>
-              <span className="price-sub">Onwards</span>
+          </Reveal>
+          
+          <div className="scroll-indicator">
+            <span className="scroll-text">Scroll</span>
+            <div className="mouse">
+              <div className="wheel"></div>
             </div>
           </div>
         </div>
