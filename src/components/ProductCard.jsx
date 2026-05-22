@@ -26,7 +26,7 @@ const ProductCard = ({ product, index }) => {
   return (
     <Link to={`/products/${product.id}`} className="product-card" style={{ animationDelay: `${delay}s` }}>
       <div className="product-image-container">
-        <img src={product.images[0]} alt={product.name} className="product-image" loading="lazy" />
+        <img src={product.image} alt={product.name} className="product-image" loading="lazy" />
         <div className="product-badges">
           {product.isNew && <span className="badge badge-new">New</span>}
           {product.badge && <span className="badge badge-sale">{product.badge}</span>}

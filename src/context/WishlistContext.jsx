@@ -7,7 +7,8 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(() => {
     try {
       const localData = localStorage.getItem('alphaWishlist');
-      return localData ? JSON.parse(localData) : [];
+      const parsed = localData ? JSON.parse(localData) : [];
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
     }
@@ -31,7 +32,7 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const isInWishlist = (productId) => {
-    return wishlist.some(item => item.id === productId);
+    return Array.isArray(wishlist) && wishlist.some(item => item.id === productId);
   };
 
   return (
