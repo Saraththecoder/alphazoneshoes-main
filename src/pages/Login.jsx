@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useSEO } from '../hooks/useSEO';
 
 const Login = () => {
   useSEO({ title: "Login - TheAlphaZone", description: "Login to your AlphaZone account" });
-  const { login } = useContext(AuthContext);
+  const { login, isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -14,6 +14,12 @@ const Login = () => {
   const [error, setError] = useState('');
   
   const from = location.state?.from || '/';
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/profile', { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

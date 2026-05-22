@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PiFaders, PiXCircle } from 'react-icons/pi';
 import { getAllProducts } from '../api/products';
 import ProductCard from '../components/ProductCard';
@@ -12,12 +12,21 @@ const categories = ['All', 'Shoes', 'Sandals', 'Flip Flops', 'T-Shirts', 'Night 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const location = useLocation();
   
   const queryParams = new URLSearchParams(location.search);
-  const initialCategory = queryParams.get('category') || 'All';
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const activeCategory = queryParams.get('category') || 'All';
+  
   const [sortBy, setSortBy] = useState('featured');
+
+  const handleCategoryClick = (cat) => {
+    if (cat === 'All') {
+      navigate('/products');
+    } else {
+      navigate(`/products?category=${encodeURIComponent(cat)}`);
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -58,7 +67,7 @@ const Products = () => {
               key={cat} 
               name={cat} 
               isActive={activeCategory === cat} 
-              onClick={() => setActiveCategory(cat)} 
+              onClick={() => handleCategoryClick(cat)}
             />
           ))}
         </div>
@@ -91,7 +100,7 @@ const Products = () => {
           <PiXCircle size={48} className="text-muted mb-4" />
           <h3>No products found</h3>
           <p className="text-muted">We couldn't find any products in this category.</p>
-          <button className="btn-secondary mt-4" onClick={() => setActiveCategory('All')}>
+          <button className="btn-secondary mt-4" onClick={() => handleCategoryClick('All')}>
             Clear Filter
           </button>
         </div>

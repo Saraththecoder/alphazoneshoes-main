@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { PiHouse, PiStorefront, PiHandbag, PiUser } from 'react-icons/pi';
 import { CartContext } from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext';
 import './BottomNav.css';
 
 const BottomNav = () => {
   const { getTotalItems } = useContext(CartContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const location = useLocation();
   const totalItems = getTotalItems();
 
@@ -13,7 +15,7 @@ const BottomNav = () => {
     { path: '/', icon: PiHouse, label: 'Home' },
     { path: '/products', icon: PiStorefront, label: 'Shop' },
     { path: '/cart', icon: PiHandbag, label: 'Cart', badge: totalItems },
-    { path: '/login', icon: PiUser, label: 'Account' },
+    { path: isLoggedIn ? '/profile' : '/login', icon: PiUser, label: 'Account' },
   ];
 
   return (

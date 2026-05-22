@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useSEO } from '../hooks/useSEO';
 
 const Signup = () => {
   useSEO({ title: "Sign Up - TheAlphaZone", description: "Create your AlphaZone account" });
-  const { login } = useContext(AuthContext);
+  const { login, isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', password: '', confirm: '' });
@@ -24,6 +24,12 @@ const Signup = () => {
   };
 
   const strength = calculateStrength(formData.password);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/profile', { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
