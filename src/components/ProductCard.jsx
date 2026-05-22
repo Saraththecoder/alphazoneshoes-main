@@ -11,6 +11,7 @@ const ProductCard = ({ product, index }) => {
   const { addToCart } = useContext(CartContext);
   const { isWishlisted, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
   const [email, setEmail] = useState('');
+  const [isAdded, setIsAdded] = useState(false);
   
   const inStock = product.inStock !== false; // Default to true if not specified
   const delay = Math.min(index * 0.1, 0.5);
@@ -30,6 +31,9 @@ const ProductCard = ({ product, index }) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, product.sizes?.[0] || 'M');
+    setIsAdded(true);
+    showToast('Added to cart successfully!', 'success');
+    setTimeout(() => setIsAdded(false), 2000);
   };
 
   const handleNotify = (e) => {
@@ -79,8 +83,8 @@ const ProductCard = ({ product, index }) => {
         </div>
         
         {inStock ? (
-          <button className="add-cart-btn" onClick={handleAddToCart}>
-            Add to Cart
+          <button className={`add-cart-btn ${isAdded ? 'added' : ''}`} onClick={handleAddToCart}>
+            {isAdded ? 'Added to Cart ✓' : 'Add to Cart'}
           </button>
         ) : (
           <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }} onClick={e => e.stopPropagation()}>

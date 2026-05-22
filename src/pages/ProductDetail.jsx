@@ -5,6 +5,7 @@ import { FaHeart } from 'react-icons/fa';
 import { CartContext } from '../context/CartContext';
 import { WishlistContext } from '../context/WishlistContext';
 import { getProductById } from '../api/products';
+import { showToast } from '../components/Toast';
 import { useSEO } from '../hooks/useSEO';
 import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 import DeliveryChecker from '../components/DeliveryChecker';
@@ -20,6 +21,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState('');
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const [notifyEmail, setNotifyEmail] = useState('');
+  const [isAdded, setIsAdded] = useState(false);
   
   const { addToCart } = useContext(CartContext);
   const { isWishlisted, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
@@ -54,6 +56,9 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     if (product.inStock === false) return;
     addToCart(product, selectedSize);
+    setIsAdded(true);
+    showToast('Added to cart successfully!', 'success');
+    setTimeout(() => setIsAdded(false), 2000);
   };
 
   if (loading) return <div className="page-enter" style={{ padding: '48px 24px', textAlign: 'center' }}>Loading product details...</div>;
@@ -128,8 +133,8 @@ const ProductDetail = () => {
           )}
 
           {inStock ? (
-            <button className="btn-primary full-width" onClick={handleAddToCart} style={{ padding: '16px', fontSize: '16px' }}>
-              Add to Cart - ₹{product.price}
+            <button className={`btn-primary full-width ${isAdded ? 'added' : ''}`} onClick={handleAddToCart} style={{ padding: '16px', fontSize: '16px', background: isAdded ? 'var(--success)' : 'var(--accent)', transition: 'background 0.3s' }}>
+              {isAdded ? 'Added to Cart ✓' : `Add to Cart - ₹${product.price}`}
             </button>
           ) : (
             <div style={{ background: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
