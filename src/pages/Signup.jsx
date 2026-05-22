@@ -40,13 +40,13 @@ const Signup = () => {
   };
 
   return (
-    <div className="page-enter" style={{ display: 'flex', minHeight: '80vh' }}>
-      <div style={{ flex: 1, background: 'var(--accent)', padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', color: '#fff' }} className="hide-mobile">
+    <div className="page-enter responsive-flex" style={{ minHeight: '80vh', gap: 0 }}>
+      <div className="responsive-flex-item hide-mobile" style={{ background: 'var(--accent)', padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', color: '#fff' }}>
         <h1 className="display-text" style={{ fontSize: '48px', marginBottom: '16px' }}>TheAlphaZone</h1>
         <p style={{ fontSize: '20px', opacity: 0.9 }}>Join the Alpha community.</p>
       </div>
       
-      <div style={{ flex: 1, padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'var(--bg-main)' }}>
+      <div className="responsive-flex-item" style={{ padding: '48px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'var(--bg-main)' }}>
         <div style={{ maxWidth: '400px', width: '100%', margin: '0 auto' }}>
           <h2 className="display-text mb-4">Create Account</h2>
           

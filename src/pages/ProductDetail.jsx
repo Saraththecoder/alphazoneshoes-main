@@ -71,8 +71,8 @@ const ProductDetail = () => {
         <span>{product.name}</span>
       </div>
 
-      <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap' }}>
-        <div style={{ flex: '1 1 400px' }}>
+      <div className="responsive-flex">
+        <div className="responsive-flex-item">
           <div style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', background: 'var(--bg-surface)' }}>
             <img src={product.image} alt={product.name} style={{ width: '100%', height: 'auto', display: 'block' }} />
             {!inStock && (
@@ -83,7 +83,7 @@ const ProductDetail = () => {
           </div>
         </div>
         
-        <div style={{ flex: '1 1 400px' }}>
+        <div className="responsive-flex-item">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <h1 className="display-text" style={{ fontSize: '32px', marginBottom: '8px' }}>{product.name}</h1>
             <div style={{ display: 'flex', gap: '12px' }}>

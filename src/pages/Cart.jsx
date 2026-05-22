@@ -44,8 +44,8 @@ const Cart = () => {
     <div className="page-enter" style={{ padding: '48px 24px', maxWidth: '1200px', margin: '0 auto' }}>
       <h1 className="display-text mb-4">Shopping Cart ({items.length})</h1>
       
-      <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-        <div style={{ flex: '1 1 600px' }}>
+      <div className="responsive-flex" style={{ alignItems: 'flex-start' }}>
+        <div className="responsive-flex-item-large">
           {items.map(item => (
             <div key={item.cartItemId} style={{ display: 'flex', gap: '24px', padding: '24px', background: 'var(--bg-surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', marginBottom: '16px' }}>
               <img src={item.image} alt={item.name} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
@@ -80,7 +80,7 @@ const Cart = () => {
           </div>
         </div>
 
-        <div style={{ flex: '1 1 350px', background: 'var(--bg-surface)', padding: '32px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', position: 'sticky', top: '100px' }}>
+        <div className="responsive-flex-item" style={{ background: 'var(--bg-surface)', padding: '32px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', position: 'sticky', top: '100px' }}>
           <h2 className="display-text mb-4" style={{ fontSize: '24px' }}>Order Summary</h2>
           
           <CouponInput cartTotal={subtotal} appliedCoupon={coupon} onApply={setCoupon} onRemove={() => setCoupon(null)} />

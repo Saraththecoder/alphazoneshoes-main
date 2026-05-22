@@ -12,8 +12,8 @@ const Contact = () => {
   };
 
   return (
-    <div className="page-enter" style={{ padding: '48px 24px', maxWidth: '1000px', margin: '0 auto', display: 'flex', gap: '48px', flexWrap: 'wrap' }}>
-      <div style={{ flex: 1, minWidth: '300px' }}>
+    <div className="page-enter responsive-flex" style={{ padding: '48px 24px', maxWidth: '1000px', margin: '0 auto' }}>
+      <div className="responsive-flex-item">
         <h1 className="display-text mb-4">Get in Touch</h1>
         <p className="text-muted mb-4">We're here to help and answer any question you might have. We look forward to hearing from you.</p>
         
@@ -33,7 +33,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <div style={{ flex: 1, minWidth: '300px', background: 'var(--bg-surface)', padding: '32px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)' }}>
+      <div className="responsive-flex-item" style={{ background: 'var(--bg-surface)', padding: '32px', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)' }}>
         {sent ? (
           <div style={{ textAlign: 'center', padding: '48px 0' }}>
             <PiEnvelopeSimple size={48} className="text-accent mb-4" />

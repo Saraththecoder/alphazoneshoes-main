@@ -25,8 +25,8 @@ const OrderDetail = () => {
         </div>
       </div>
       
-      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-        <div style={{ flex: 2, minWidth: '300px' }}>
+      <div className="responsive-flex">
+        <div className="responsive-flex-item-large">
           <h3 style={{ marginBottom: '16px' }}>Items</h3>
           <div style={{ background: 'var(--bg-surface)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', display: 'flex', gap: '16px' }}>
             <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800" alt="Item" style={{ width: '80px', height: '80px', borderRadius: '4px', objectFit: 'cover' }} />
@@ -38,7 +38,7 @@ const OrderDetail = () => {
           </div>
         </div>
         
-        <div style={{ flex: 1, minWidth: '250px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div className="responsive-flex-item" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <div style={{ background: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
             <h3 style={{ marginBottom: '16px' }}>Delivery Address</h3>
             <p className="text-muted text-sm m-0" style={{ lineHeight: 1.6 }}>

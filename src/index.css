@@ -142,19 +142,36 @@ img {
   transform: translateY(0);
 }
 
+/* Layout Utilities */
+.responsive-flex {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.responsive-flex-item {
+  flex: 1 1 350px;
+  min-width: 0;
+}
+
+.responsive-flex-item-large {
+  flex: 2 1 500px;
+  min-width: 0;
+}
+
 /* Global Responsive Adjustments */
 @media (max-width: 860px) {
   /* Typography Scaling */
   h1, .display-text {
-    font-size: clamp(32px, 8vw, 48px) !important;
+    font-size: clamp(28px, 8vw, 40px) !important;
   }
   
   h2 {
-    font-size: clamp(28px, 6vw, 40px) !important;
+    font-size: clamp(24px, 6vw, 32px) !important;
   }
 
   h3 {
-    font-size: clamp(22px, 5vw, 32px) !important;
+    font-size: clamp(20px, 5vw, 24px) !important;
   }
 
   /* Utility Classes */
@@ -166,14 +183,21 @@ img {
     display: block !important;
   }
 
-  /* Force vertical stacking on specifically large flex gaps in pages */
-  .page-enter > div[style*="display: flex"][style*="gap: 48px"] {
+  .responsive-flex {
     flex-direction: column !important;
     gap: 32px !important;
   }
 
-  .page-enter > div[style*="display: flex"][style*="minHeight: 80vh"] {
-    flex-direction: column !important;
+  .responsive-flex-item, .responsive-flex-item-large {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+  }
+  
+  /* Reset large paddings */
+  .page-enter {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 }
+
 
