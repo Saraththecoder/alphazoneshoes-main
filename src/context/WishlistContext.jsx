@@ -4,7 +4,7 @@ import { showToast } from '../components/Toast';
 export const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState(() => {
+  const [items, setItems] = useState(() => {
     try {
       const localData = localStorage.getItem('alphaWishlist');
       const parsed = localData ? JSON.parse(localData) : [];
@@ -15,28 +15,35 @@ export const WishlistProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem('alphaWishlist', JSON.stringify(wishlist));
-  }, [wishlist]);
+    localStorage.setItem('alphaWishlist', JSON.stringify(items));
+  }, [items]);
 
-  const toggleWishlist = (product) => {
-    setWishlist((prev) => {
-      const exists = prev.find(item => item.id === product.id);
-      if (exists) {
-        showToast('Removed from wishlist');
-        return prev.filter(item => item.id !== product.id);
-      } else {
-        showToast('Added to wishlist', 'success');
-        return [...prev, product];
-      }
+  const addToWishlist = (product) => {
+    setItems((prev) => {
+      if (prev.some(item => item.id === product.id)) return prev;
+      showToast('Added to Wishlist ♥', 'success');
+      return [...prev, product];
     });
   };
 
-  const isInWishlist = (productId) => {
-    return Array.isArray(wishlist) && wishlist.some(item => item.id === productId);
+  const removeFromWishlist = (id) => {
+    setItems((prev) => {
+      showToast('Removed from wishlist');
+      return prev.filter(item => item.id !== id);
+    });
+  };
+
+  const isWishlisted = (id) => {
+    return Array.isArray(items) && items.some(item => item.id === id);
+  };
+
+  const clearWishlist = () => {
+    setItems([]);
+    showToast('Wishlist cleared');
   };
 
   return (
-    <WishlistContext.Provider value={{ wishlist, toggleWishlist, isInWishlist }}>
+    <WishlistContext.Provider value={{ items, addToWishlist, removeFromWishlist, isWishlisted, clearWishlist }}>
       {children}
     </WishlistContext.Provider>
   );

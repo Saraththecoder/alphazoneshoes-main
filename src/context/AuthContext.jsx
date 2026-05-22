@@ -1,59 +1,49 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { showToast } from '../components/Toast';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
-      const localData = localStorage.getItem('authUser');
+      const localData = localStorage.getItem('alphaUser');
       return localData ? JSON.parse(localData) : null;
     } catch (e) {
       return null;
     }
   });
 
+  const isLoggedIn = !!user;
+
   useEffect(() => {
     if (user) {
-      localStorage.setItem('authUser', JSON.stringify(user));
+      localStorage.setItem('alphaUser', JSON.stringify(user));
     } else {
-      localStorage.removeItem('authUser');
+      localStorage.removeItem('alphaUser');
     }
   }, [user]);
 
-  const login = async (email, password) => {
-    // Mocking an API call
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email && password) {
-          setUser({ name: email.split('@')[0], email, id: 'user_' + Date.now() });
-          resolve();
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 800);
-    });
-  };
-
-  const signup = async (name, email, password) => {
-    // Mocking an API call
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (name && email && password) {
-          setUser({ name, email, id: 'user_' + Date.now() });
-          resolve();
-        } else {
-          reject(new Error('Please fill all fields'));
-        }
-      }, 800);
-    });
+  const login = (userData) => {
+    setUser(userData);
+    showToast(`Welcome back, ${userData.name}!`, 'success');
   };
 
   const logout = () => {
     setUser(null);
+    showToast('Logged out successfully');
+  };
+
+  const updateProfile = (data) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      const updated = { ...prev, ...data };
+      showToast('Profile updated', 'success');
+      return updated;
+    });
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, isLoggedIn, login, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

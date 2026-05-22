@@ -1,57 +1,42 @@
-import './About.css';
+import React from 'react';
+import { useSEO } from '../hooks/useSEO';
+import { PiCheckCircleFill, PiRocketLaunchFill, PiHeartFill } from 'react-icons/pi';
 
-const About = () => (
-  <div className="about-page">
-    <div className="about-hero">
-      <div className="about-hero-content glass">
-        <h1><span className="a-alpha">TheAlpha</span><span className="a-zone">Zone</span></h1>
-        <p>Your premium fashion destination for footwear & apparel</p>
-      </div>
-    </div>
+const About = () => {
+  useSEO({ title: "About Us - TheAlphaZone" });
 
-    <div className="about-container">
-      <div className="about-story glass">
-        <h2>Our Story</h2>
-        <p>Welcome to <strong>TheAlphaZone</strong> — where fashion meets comfort. We started with a simple mission: to bring premium quality sandals, shoes, flip flops, tshirts, and track pants to everyone at prices that make sense.</p>
-        <p>From trendy sneakers to ultra-soft track pants, every product at TheAlphaZone is carefully curated to ensure you look great and feel even better. We believe fashion should be accessible, comfortable, and expressive.</p>
-        <p>Whether you're stepping out in style or lounging at home, TheAlphaZone has you covered — head to toe.</p>
-      </div>
+  return (
+    <div className="page-enter" style={{ padding: '48px 24px', maxWidth: '800px', margin: '0 auto' }}>
+      <h1 className="display-text mb-4 text-center">Born in India, Built for Confidence</h1>
+      <p className="text-muted mb-4 text-center" style={{ fontSize: '18px', lineHeight: 1.6 }}>
+        TheAlphaZone is more than a brand. It's a lifestyle. Our mission is to provide you with the highest quality fashion that empowers you to step out with confidence every single day.
+      </p>
 
-      <div className="about-features">
-        {[
-          { icon: '👟', title: 'Premium Footwear', desc: 'Sandals, shoes & flip flops for every occasion and lifestyle' },
-          { icon: '👕', title: 'Trendy Apparel', desc: 'Fresh tshirts and comfortable track pants for every mood' },
-          { icon: '🚚', title: 'Fast Delivery', desc: 'Quick doorstep delivery with freshness guaranteed' },
-          { icon: '✅', title: 'Quality Assured', desc: 'Every product quality-checked before it reaches you' },
-        ].map((f, i) => (
-          <div key={i} className="about-feature-card glass">
-            <span className="af-icon">{f.icon}</span>
-            <h3>{f.title}</h3>
-            <p>{f.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="about-values glass">
-        <h2>Our Values</h2>
-        <div className="values-grid">
-          {[
-            { label: 'Quality', desc: 'Never compromising on product quality' },
-            { label: 'Style', desc: 'Keeping up with the latest fashion trends' },
-            { label: 'Comfort', desc: 'Products designed for all-day comfort' },
-            { label: 'Affordability', desc: 'Premium fashion at accessible prices' },
-            { label: 'Customer First', desc: 'Your satisfaction is our top priority' },
-          ].map((v, i) => (
-            <div key={i} className="value-item">
-              <span className="value-dot" />
-              <div><strong>{v.label}:</strong> {v.desc}</div>
-            </div>
-          ))}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginTop: '48px', marginBottom: '48px' }}>
+        <div style={{ background: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--radius-md)', textAlign: 'center', border: '1px solid var(--border)' }}>
+          <PiCheckCircleFill size={40} className="text-accent mb-2" />
+          <h3>Premium Quality</h3>
+          <p className="text-muted text-sm">We source only the finest materials.</p>
+        </div>
+        <div style={{ background: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--radius-md)', textAlign: 'center', border: '1px solid var(--border)' }}>
+          <PiHeartFill size={40} className="text-accent mb-2" />
+          <h3>Affordability</h3>
+          <p className="text-muted text-sm">Luxury doesn't have to break the bank.</p>
+        </div>
+        <div style={{ background: 'var(--bg-surface)', padding: '24px', borderRadius: 'var(--radius-md)', textAlign: 'center', border: '1px solid var(--border)' }}>
+          <PiRocketLaunchFill size={40} className="text-accent mb-2" />
+          <h3>Fast Delivery</h3>
+          <p className="text-muted text-sm">Lightning fast shipping across India.</p>
         </div>
       </div>
+
+      <div style={{ background: 'var(--accent)', padding: '32px', borderRadius: 'var(--radius-lg)', color: '#fff', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '16px', textAlign: 'center' }}>
+        <div><h2 style={{ margin: 0, fontSize: '32px' }}>5000+</h2><p style={{ margin: 0, opacity: 0.9 }}>Orders</p></div>
+        <div><h2 style={{ margin: 0, fontSize: '32px' }}>4.8★</h2><p style={{ margin: 0, opacity: 0.9 }}>Rating</p></div>
+        <div><h2 style={{ margin: 0, fontSize: '32px' }}>100+</h2><p style={{ margin: 0, opacity: 0.9 }}>Products</p></div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default About;
-

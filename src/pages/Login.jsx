@@ -1,71 +1,71 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { showToast } from '../components/Toast';
-import './Auth.css';
+import { useSEO } from '../hooks/useSEO';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  
+  useSEO({ title: "Login - TheAlphaZone", description: "Login to your AlphaZone account" });
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  
+  const from = location.state?.from || '/';
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      await login(email, password);
-      showToast('Welcome back to TheAlphaZone!', 'success');
-      navigate('/');
-    } catch (error) {
-      showToast(error.message, 'error');
-    } finally {
-      setLoading(false);
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+    if (email.includes('@') && password.length >= 6) {
+      login({ name: email.split('@')[0], email, phone: '', avatar: null });
+      navigate(from, { replace: true });
+    } else {
+      setError('Invalid email or password');
     }
   };
 
   return (
-    <div className="auth-page page-enter">
-      <div className="auth-card">
-        <h1 className="auth-title">Welcome Back</h1>
-        <p className="auth-subtitle">Enter your details to access your account.</p>
-        
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input 
-              type="email" 
-              id="email" 
-              className="form-input" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required 
-            />
-          </div>
+    <div className="page-enter" style={{ display: 'flex', minHeight: '80vh' }}>
+      <div style={{ flex: 1, background: 'var(--accent)', padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', color: '#fff' }} className="hide-mobile">
+        <h1 className="display-text" style={{ fontSize: '48px', marginBottom: '16px' }}>TheAlphaZone</h1>
+        <p style={{ fontSize: '20px', opacity: 0.9 }}>Wear Bold. Live Alpha.</p>
+      </div>
+      
+      <div style={{ flex: 1, padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'var(--bg-main)' }}>
+        <div style={{ maxWidth: '400px', width: '100%', margin: '0 auto' }}>
+          <h2 className="display-text mb-4">Welcome Back</h2>
           
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input 
-              type="password" 
-              id="password" 
-              className="form-input" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required 
-            />
-          </div>
-          
-          <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: '8px' }}>
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-        
-        <div className="auth-link">
-          Don't have an account? <Link to="/signup">Sign up here</Link>
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)' }}>Email</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={{ width: '100%', padding: '12px', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: '#fff' }} />
+            </div>
+            
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)' }}>Password</label>
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} style={{ width: '100%', padding: '12px', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: '#fff' }} />
+            </div>
+            
+            {error && <div style={{ color: 'var(--accent)', fontSize: '14px', marginBottom: '16px' }}>{error}</div>}
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', fontSize: '14px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)' }}>
+                <input type="checkbox" /> Remember me
+              </label>
+              <a href="#" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Forgot Password?</a>
+            </div>
+            
+            <button type="submit" className="btn-primary full-width mb-4">Login</button>
+            
+            <p className="text-center text-muted">
+              Don't have an account? <Link to="/signup" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Sign Up</Link>
+            </p>
+          </form>
         </div>
       </div>
     </div>
