@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PiInstagramLogo, PiTwitterLogo, PiFacebookLogo } from 'react-icons/pi';
 import './Footer.css';
 
@@ -20,21 +21,30 @@ const Footer = () => {
         
         <div className="footer-col">
           <h3>Shop</h3>
-          <ul>
-            <li><a href="#">New Arrivals</a></li>
-            <li><a href="#">Shoes & Sandals</a></li>
-            <li><a href="#">T-Shirts</a></li>
-            <li><a href="#">Night Pants</a></li>
+          <ul className="footer-links">
+            <li><Link to="/products">Shop All</Link></li>
+            <li><Link to="/products?category=Sandals">Sandals</Link></li>
+            <li><Link to="/products?category=Shoes">Shoes</Link></li>
+            <li><Link to="/products?category=T-Shirts">Apparel</Link></li>
           </ul>
         </div>
         
         <div className="footer-col">
-          <h3>Support</h3>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Shipping & Returns</a></li>
-            <li><a href="#">Size Guide</a></li>
-            <li><a href="#">Contact Us</a></li>
+          <h4 className="footer-heading">Support</h4>
+          <ul className="footer-links">
+            <li><Link to="/faq">FAQ</Link></li>
+            <li><Link to="/contact">Contact Us</Link></li>
+            <li><Link to="/refund">Returns</Link></li>
+            <li><Link to="/faq">Track Order</Link></li>
+          </ul>
+        </div>
+
+        <div className="footer-col">
+          <h4 className="footer-heading">Company</h4>
+          <ul className="footer-links">
+            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/terms">Terms of Service</Link></li>
+            <li><Link to="/privacy">Privacy Policy</Link></li>
           </ul>
         </div>
       </div>

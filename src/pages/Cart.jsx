@@ -1,16 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PiHandbag, PiTrash, PiMinus, PiPlus } from 'react-icons/pi';
+import { PiHandbag, PiTrash, PiMinus, PiPlus, PiTag } from 'react-icons/pi';
 import { CartContext } from '../context/CartContext';
+import { showToast } from '../components/Toast';
 import Reveal from '../components/Reveal';
 import './Cart.css';
 
 const Cart = () => {
   const { items, updateQuantity, removeFromCart, getTotalPrice } = useContext(CartContext);
   
+  const [couponCode, setCouponCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+
   const subtotal = getTotalPrice();
   const delivery = subtotal > 499 ? 0 : 49;
-  const total = items.length > 0 ? subtotal + delivery : 0;
+  const total = items.length > 0 ? subtotal + delivery - discount : 0;
+
+  const handleApplyCoupon = () => {
+    if (couponCode.toUpperCase() === 'ALPHA20') {
+      setDiscount(Math.floor(subtotal * 0.20));
+      showToast('Coupon applied successfully', 'success');
+    } else {
+      setDiscount(0);
+      showToast('Invalid coupon', 'error');
+    }
+  };
+
+  const handleUpdateQty = (id, size, change, currentQty) => {
+    if (currentQty + change > 5) {
+      showToast('Max stock reached (5)', 'error');
+    }
+    updateQuantity(id, size, change);
+  };
 
   if (items.length === 0) {
     return (
@@ -43,9 +64,9 @@ const Cart = () => {
               
               <div className="item-actions">
                 <div className="quantity-stepper">
-                  <button onClick={() => updateQuantity(item.id, item.size, -1)}><PiMinus /></button>
+                  <button onClick={() => handleUpdateQty(item.id, item.size, -1, item.quantity)}><PiMinus /></button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.size, 1)}><PiPlus /></button>
+                  <button onClick={() => handleUpdateQty(item.id, item.size, 1, item.quantity)}><PiPlus /></button>
                 </div>
                 
                 <button 
@@ -77,8 +98,29 @@ const Cart = () => {
                 <span>₹{delivery}</span>
               )}
             </div>
+
+            {discount > 0 && (
+              <div className="summary-row" style={{ color: 'var(--success)' }}>
+                <span>Discount</span>
+                <span>-₹{discount}</span>
+              </div>
+            )}
             
             <hr className="divider" />
+
+            <div className="coupon-section" style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+              <div style={{ position: 'relative', flex: 1 }}>
+                <PiTag style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <input 
+                  type="text" 
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                  placeholder="Enter coupon code" 
+                  style={{ width: '100%', padding: '12px 12px 12px 36px', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)', color: '#fff' }}
+                />
+              </div>
+              <button className="btn-secondary" onClick={handleApplyCoupon} style={{ padding: '0 16px' }}>Apply</button>
+            </div>
             
             <div className="summary-row total-row">
               <span>Total</span>

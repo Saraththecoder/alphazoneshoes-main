@@ -17,6 +17,7 @@ const Products = () => {
   const queryParams = new URLSearchParams(location.search);
   const initialCategory = queryParams.get('category') || 'All';
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [sortBy, setSortBy] = useState('featured');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,6 +35,13 @@ const Products = () => {
   const filteredProducts = activeCategory === 'All' 
     ? products 
     : products.filter(p => p.category === activeCategory);
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortBy === 'price-low') return a.price - b.price;
+    if (sortBy === 'price-high') return b.price - a.price;
+    if (sortBy === 'newest') return (b.isNew === true) - (a.isNew === true);
+    return 0;
+  });
 
   return (
     <div className="products-page page-enter">
@@ -54,15 +62,27 @@ const Products = () => {
             />
           ))}
         </div>
+        <div className="sort-dropdown" style={{ marginLeft: 'auto' }}>
+          <select 
+            value={sortBy} 
+            onChange={(e) => setSortBy(e.target.value)}
+            style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', color: 'var(--ivory)', padding: '8px 16px', borderRadius: 'var(--radius-sm)', outline: 'none' }}
+          >
+            <option value="featured">Featured</option>
+            <option value="newest">New Arrivals</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
+        </div>
       </div>
 
       {loading ? (
         <div className="products-grid-masonry">
           {Array(8).fill(0).map((_, i) => <SkeletonCard key={i} />)}
         </div>
-      ) : filteredProducts.length > 0 ? (
+      ) : sortedProducts.length > 0 ? (
         <div className="products-grid-masonry">
-          {filteredProducts.map((product, idx) => (
+          {sortedProducts.map((product, idx) => (
             <ProductCard key={product.id} product={product} index={idx} />
           ))}
         </div>

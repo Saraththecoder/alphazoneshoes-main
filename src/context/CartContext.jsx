@@ -18,18 +18,20 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (product, size) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id && item.size === size);
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === product.id && item.size === size
-            ? { ...item, quantity: item.quantity + 1 }
+  const addToCart = (product, size, quantity) => {
+    setItems((prev) => {
+      const existing = prev.find(item => item.id === product.id && item.size === size);
+      if (existing) {
+        if (existing.quantity + quantity > 5) {
+          return prev;
+        }
+        return prev.map(item => 
+          item.id === product.id && item.size === size 
+            ? { ...item, quantity: Math.min(item.quantity + quantity, 5) }
             : item
         );
-      } else {
-        return [...prevItems, { ...product, size, quantity: 1 }];
       }
+      return [...prev, { ...product, size, quantity: Math.min(quantity, 5) }];
     });
   };
 
@@ -37,16 +39,17 @@ export const CartProvider = ({ children }) => {
     setItems((prevItems) => prevItems.filter((item) => !(item.id === id && item.size === size)));
   };
 
-  const updateQuantity = (id, size, delta) => {
-    setItems((prevItems) =>
-      prevItems.map((item) => {
+  const updateQuantity = (id, size, change) => {
+    setItems((prev) => {
+      return prev.map(item => {
         if (item.id === id && item.size === size) {
-          const newQty = item.quantity + delta;
-          return { ...item, quantity: newQty > 0 ? newQty : 1 };
+          const newQty = item.quantity + change;
+          if (newQty > 5 || newQty < 1) return item;
+          return { ...item, quantity: newQty };
         }
         return item;
-      })
-    );
+      });
+    });
   };
 
   const clearCart = () => setItems([]);

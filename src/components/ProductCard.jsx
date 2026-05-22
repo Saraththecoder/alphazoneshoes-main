@@ -1,11 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PiHeart } from 'react-icons/pi';
 import { CartContext } from '../context/CartContext';
+import { WishlistContext } from '../context/WishlistContext';
 import { showToast } from './Toast';
 import './ProductCard.css';
 
 const ProductCard = ({ product, index }) => {
   const { addToCart } = useContext(CartContext);
+  const { toggleWishlist, isInWishlist } = useContext(WishlistContext);
+  const isWishlisted = isInWishlist(product.id);
   const [added, setAdded] = useState(false);
 
   const handleAdd = (e) => {
@@ -22,8 +26,18 @@ const ProductCard = ({ product, index }) => {
   return (
     <Link to={`/products/${product.id}`} className="product-card" style={{ animationDelay: `${delay}s` }}>
       <div className="product-image-container">
-        <img src={product.image} alt={product.name} className="product-image" loading="lazy" />
-        {product.isNew && <span className="badge">NEW</span>}
+        <img src={product.images[0]} alt={product.name} className="product-image" loading="lazy" />
+        <div className="product-badges">
+          {product.isNew && <span className="badge badge-new">New</span>}
+          {product.badge && <span className="badge badge-sale">{product.badge}</span>}
+        </div>
+        <button 
+          className="wishlist-btn-overlay" 
+          onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
+          aria-label="Toggle Wishlist"
+        >
+          <PiHeart size={24} weight={isWishlisted ? "fill" : "regular"} className={isWishlisted ? "text-accent" : ""} />
+        </button>
       </div>
       
       <div className="product-info">
