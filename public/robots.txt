@@ -1,0 +1,15 @@
+# TheAlphaZone - robots.txt
+# https://thealphazone.in
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private routes
+Disallow: /admin/
+Disallow: /login
+
+# Disallow checkout (no SEO value)
+Disallow: /checkout
+
+# Sitemap location
+Sitemap: https://thealphazone.in/sitemap.xml
