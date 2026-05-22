@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PiTruck, PiArrowsClockwise, PiStar } from 'react-icons/pi';
+import { PiTruck, PiArrowsClockwise, PiStar, PiSneaker, PiTShirt, PiPants } from 'react-icons/pi';
+import { GiSandal, GiFlipFlops } from 'react-icons/gi';
 import { getAllProducts } from '../api/products';
 import ProductCard from '../components/ProductCard';
 import SkeletonCard from '../components/SkeletonCard';
@@ -8,11 +9,11 @@ import Reveal from '../components/Reveal';
 import './Home.css';
 
 const categories = [
-  { name: 'Sandals', count: 12, icon: '👡' },
-  { name: 'Shoes', count: 24, icon: '👟' },
-  { name: 'Flip Flops', count: 8, icon: '🩴' },
-  { name: 'T-Shirts', count: 18, icon: '👕' },
-  { name: 'Night Pants', count: 10, icon: '👖' }
+  { name: 'Sandals', count: 12, icon: <GiSandal size={48} /> },
+  { name: 'Shoes', count: 24, icon: <PiSneaker size={48} /> },
+  { name: 'Flip Flops', count: 8, icon: <GiFlipFlops size={48} /> },
+  { name: 'T-Shirts', count: 18, icon: <PiTShirt size={48} /> },
+  { name: 'Night Pants', count: 10, icon: <PiPants size={48} /> }
 ];
 
 const Home = () => {
@@ -78,7 +79,7 @@ const Home = () => {
           <div className="category-scroll-container">
             {categories.map((cat, idx) => (
               <Link to={`/products?category=${cat.name}`} key={idx} className="category-card">
-                <div className="category-icon">{cat.icon}</div>
+                <div className="category-icon" style={{ color: 'var(--accent)' }}>{cat.icon}</div>
                 <h3 className="category-name">{cat.name}</h3>
                 <p className="category-count">{cat.count} Products</p>
               </Link>
