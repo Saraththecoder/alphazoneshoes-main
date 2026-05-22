@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiSearch, FiShoppingBag, FiMenu, FiX } from 'react-icons/fi';
+import { PiMagnifyingGlass, PiHandbag, PiList, PiX } from 'react-icons/pi';
 import { CartContext } from '../context/CartContext';
 import './Navbar.css';
 
@@ -35,16 +35,16 @@ const Navbar = () => {
 
         <div className="nav-right">
           <button className="icon-btn" aria-label="Search">
-            <FiSearch size={20} />
+            <PiMagnifyingGlass size={20} />
           </button>
           <Link to="/cart" className="icon-btn cart-btn" aria-label="Cart">
-            <FiShoppingBag size={20} />
+            <PiHandbag size={20} />
             {totalItems > 0 && (
               <span className="cart-badge cart-pulse">{totalItems}</span>
             )}
           </Link>
           <button className="icon-btn mobile-menu" onClick={() => setDrawerOpen(true)}>
-            <FiMenu size={24} />
+            <PiList size={24} />
           </button>
         </div>
       </nav>
@@ -57,7 +57,7 @@ const Navbar = () => {
             The<span className="text-accent">Alpha</span>Zone
           </span>
           <button className="icon-btn" onClick={() => setDrawerOpen(false)}>
-            <FiX size={24} />
+            <PiX size={24} />
           </button>
         </div>
         <div className="drawer-links">

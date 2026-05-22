@@ -209,7 +209,7 @@
 }
 
 @media (max-width: 767px) {
-  .product-detail-page { padding: 24px; }
+  .product-detail-page { padding: 16px; }
   .action-row { flex-direction: column; }
   .detail-title { font-size: 28px; }
   .detail-price-row .sale-price { font-size: 28px; }

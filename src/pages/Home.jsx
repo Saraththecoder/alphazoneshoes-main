@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiTruck, FiRefreshCw, FiStar } from 'react-icons/fi';
+import { PiTruck, PiArrowsClockwise, PiStar } from 'react-icons/pi';
 import { getAllProducts } from '../api/products';
 import ProductCard from '../components/ProductCard';
 import SkeletonCard from '../components/SkeletonCard';
@@ -48,15 +48,15 @@ const Home = () => {
           
           <div className="hero-features">
             <div className="feature">
-              <FiTruck className="text-accent" />
+              <PiTruck className="text-accent" />
               <span>Free Delivery ₹499+</span>
             </div>
             <div className="feature">
-              <FiRefreshCw className="text-accent" />
+              <PiArrowsClockwise className="text-accent" />
               <span>Easy Returns</span>
             </div>
             <div className="feature">
-              <FiStar className="text-accent" />
+              <PiStar weight="fill" className="text-accent" />
               <span>Premium Quality</span>
             </div>
           </div>
@@ -67,7 +67,7 @@ const Home = () => {
             <div className="bento-tile tile-large-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800)' }}>
             </div>
             <div className="bento-tile tile-stat">
-              <FiStar size={32} className="text-accent mb-2" />
+              <PiStar size={32} weight="fill" className="text-accent mb-2" />
               <h3 className="stat-num">2000+</h3>
               <p className="stat-text">Happy Customers</p>
             </div>

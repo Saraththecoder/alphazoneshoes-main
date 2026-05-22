@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FiShoppingBag, FiTrash2, FiMinus, FiPlus } from 'react-icons/fi';
+import { PiHandbag, PiTrash, PiMinus, PiPlus } from 'react-icons/pi';
 import { CartContext } from '../context/CartContext';
 import Reveal from '../components/Reveal';
 import './Cart.css';
@@ -15,7 +15,7 @@ const Cart = () => {
   if (items.length === 0) {
     return (
       <div className="cart-page page-enter empty">
-        <FiShoppingBag size={64} className="text-muted mb-4" />
+        <PiHandbag size={64} className="text-muted mb-4" />
         <h2 className="display-text">Your cart is empty</h2>
         <p className="text-muted">Looks like you haven't added anything to your cart yet.</p>
         <Link to="/products" className="btn-primary mt-4">Start Shopping</Link>
@@ -43,9 +43,9 @@ const Cart = () => {
               
               <div className="item-actions">
                 <div className="quantity-stepper">
-                  <button onClick={() => updateQuantity(item.id, item.size, -1)}><FiMinus /></button>
+                  <button onClick={() => updateQuantity(item.id, item.size, -1)}><PiMinus /></button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.size, 1)}><FiPlus /></button>
+                  <button onClick={() => updateQuantity(item.id, item.size, 1)}><PiPlus /></button>
                 </div>
                 
                 <button 
@@ -53,7 +53,7 @@ const Cart = () => {
                   onClick={() => removeFromCart(item.id, item.size)}
                   aria-label="Remove item"
                 >
-                  <FiTrash2 size={20} />
+                  <PiTrash size={20} />
                 </button>
               </div>
             </div>

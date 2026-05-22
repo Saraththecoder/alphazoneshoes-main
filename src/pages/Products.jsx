@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FiFilter, FiXCircle } from 'react-icons/fi';
+import { PiFaders, PiXCircle } from 'react-icons/pi';
 import { getAllProducts } from '../api/products';
 import ProductCard from '../components/ProductCard';
 import SkeletonCard from '../components/SkeletonCard';
@@ -43,7 +43,7 @@ const Products = () => {
       </div>
 
       <div className="filter-bar">
-        <FiFilter className="text-muted" size={20} />
+        <PiFaders className="text-muted" size={20} />
         <div className="pills-container">
           {categories.map((cat) => (
             <CategoryPill 
@@ -68,7 +68,7 @@ const Products = () => {
         </div>
       ) : (
         <div className="empty-state">
-          <FiXCircle size={48} className="text-muted mb-4" />
+          <PiXCircle size={48} className="text-muted mb-4" />
           <h3>No products found</h3>
           <p className="text-muted">We couldn't find any products in this category.</p>
           <button className="btn-secondary mt-4" onClick={() => setActiveCategory('All')}>

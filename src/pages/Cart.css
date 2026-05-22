@@ -144,7 +144,7 @@
 }
 
 @media (max-width: 767px) {
-  .cart-page { padding: 24px; }
+  .cart-page { padding: 40px 16px; }
   .cart-item {
     flex-wrap: wrap;
     position: relative;

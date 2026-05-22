@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FiStar, FiCheck, FiMinus, FiPlus } from 'react-icons/fi';
+import { PiStar, PiCheck, PiMinus, PiPlus } from 'react-icons/pi';
 import { getProductById } from '../api/products';
 import { CartContext } from '../context/CartContext';
 import { showToast } from '../components/Toast';
@@ -82,11 +82,11 @@ const ProductDetail = () => {
           
           <div className="rating-row">
             <div className="stars">
-              <FiStar className="filled" />
-              <FiStar className="filled" />
-              <FiStar className="filled" />
-              <FiStar className="filled" />
-              <FiStar className={product.rating >= 4.8 ? "filled" : ""} />
+              <PiStar weight="fill" className="filled" />
+              <PiStar weight="fill" className="filled" />
+              <PiStar weight="fill" className="filled" />
+              <PiStar weight="fill" className="filled" />
+              <PiStar weight="fill" className={product.rating >= 4.8 ? "filled" : ""} />
             </div>
             <span className="rating-count">({product.rating} / 5)</span>
           </div>
@@ -116,9 +116,9 @@ const ProductDetail = () => {
           </div>
           
           <div className="quantity-selector">
-            <button className="qty-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}><FiMinus /></button>
+            <button className="qty-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}><PiMinus /></button>
             <span className="qty-number">{quantity}</span>
-            <button className="qty-btn" onClick={() => setQuantity(quantity + 1)}><FiPlus /></button>
+            <button className="qty-btn" onClick={() => setQuantity(quantity + 1)}><PiPlus /></button>
           </div>
           
           <div className="action-row">
@@ -139,7 +139,7 @@ const ProductDetail = () => {
           <ul className="features-list">
             {product.features.map((feature, idx) => (
               <li key={idx}>
-                <FiCheck className="feature-icon" />
+                <PiCheck className="feature-icon" />
                 {feature}
               </li>
             ))}

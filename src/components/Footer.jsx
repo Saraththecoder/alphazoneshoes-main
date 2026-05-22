@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiInstagram, FiTwitter, FiFacebook } from 'react-icons/fi';
+import { PiInstagramLogo, PiTwitterLogo, PiFacebookLogo } from 'react-icons/pi';
 import './Footer.css';
 
 const Footer = () => {
@@ -12,9 +12,9 @@ const Footer = () => {
           </h2>
           <p className="text-muted">Wear Bold. Live Alpha. Premium Indian Fashion designed for the modern trendsetter.</p>
           <div className="social-icons">
-            <a href="#" className="icon-btn"><FiInstagram size={20} /></a>
-            <a href="#" className="icon-btn"><FiTwitter size={20} /></a>
-            <a href="#" className="icon-btn"><FiFacebook size={20} /></a>
+            <a href="#" className="icon-btn"><PiInstagramLogo size={20} weight="fill" /></a>
+            <a href="#" className="icon-btn"><PiTwitterLogo size={20} weight="fill" /></a>
+            <a href="#" className="icon-btn"><PiFacebookLogo size={20} weight="fill" /></a>
           </div>
         </div>
         
