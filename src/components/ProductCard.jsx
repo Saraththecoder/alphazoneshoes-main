@@ -5,6 +5,7 @@ import { FaHeart } from 'react-icons/fa';
 import { CartContext } from '../context/CartContext';
 import { WishlistContext } from '../context/WishlistContext';
 import { showToast } from './Toast';
+import './ProductCard.css';
 
 const ProductCard = ({ product, index }) => {
   const { addToCart } = useContext(CartContext);
@@ -66,30 +67,29 @@ const ProductCard = ({ product, index }) => {
           {wishlisted ? <FaHeart size={20} /> : <PiHeart size={20} />}
         </button>
 
-        <div className="quick-add" style={{ zIndex: 3 }}>
-          {inStock ? (
-            <button className="btn-quick-add" onClick={handleAddToCart}>
-              Add to Cart
-            </button>
-          ) : (
-            <div style={{ padding: '8px', background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)', width: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }} onClick={e => e.stopPropagation()}>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter email..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border)', background: '#222', color: '#fff', fontSize: '12px' }} />
-              <button className="btn-secondary" onClick={handleNotify} style={{ padding: '6px', fontSize: '12px' }}>
-                Notify Me
-              </button>
-            </div>
-          )}
-        </div>
       </div>
       <div className="product-info">
-        <h3 className="product-title">{product.name}</h3>
+        <h3 className="product-name">{product.name}</h3>
         <p className="product-category">{product.category}</p>
-        <div className="product-price-row">
-          <span className="product-price">₹{product.price}</span>
+        <div className="price-row">
+          <span className="sale-price">₹{product.price}</span>
           {product.originalPrice && (
-            <span className="product-original-price">₹{product.originalPrice}</span>
+            <span className="original-price">₹{product.originalPrice}</span>
           )}
         </div>
+        
+        {inStock ? (
+          <button className="add-cart-btn" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        ) : (
+          <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }} onClick={e => e.stopPropagation()}>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter email to notify" style={{ padding: '8px', borderRadius: '4px', border: '1px solid var(--border)', background: 'var(--bg-surface)', color: '#fff', fontSize: '12px' }} />
+            <button className="btn-secondary" onClick={handleNotify} style={{ padding: '8px', fontSize: '12px' }}>
+              Notify Me
+            </button>
+          </div>
+        )}
       </div>
     </Link>
   );

@@ -30,7 +30,7 @@
 
 @media (max-width: 767px) {
   .whatsapp-widget {
-    bottom: calc(max(env(safe-area-inset-bottom), 16px) + 80px); /* Above bottom nav */
+    bottom: calc(max(env(safe-area-inset-bottom), 16px) + 96px); /* Pushed up to clear BottomNav */
     right: 16px;
   }
 }
